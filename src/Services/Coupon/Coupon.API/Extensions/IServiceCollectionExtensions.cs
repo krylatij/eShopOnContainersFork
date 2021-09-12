@@ -29,9 +29,11 @@
             services.AddTransient<ICouponRepository, CouponRepository>()
                 .AddTransient<IServiceBusPersisterConnection, DefaultServiceBusPersisterConnection>(service =>
                 {
-                    var connection = new ServiceBusConnectionStringBuilder(configuration["EventBusConnection"]);
+                    var serviceBusConnectionString = configuration["EventBusConnection"];
+                    var serviceBusConnection = new ServiceBusConnectionStringBuilder(serviceBusConnectionString);
 
-                    return new DefaultServiceBusPersisterConnection(connection, service.GetService<ILogger<DefaultServiceBusPersisterConnection>>());
+                    var subscriptionClientName = configuration["SubscriptionClientName"];
+                    return new DefaultServiceBusPersisterConnection(serviceBusConnection, subscriptionClientName);
                 })
                 .AddTransient<IRabbitMQPersistentConnection, DefaultRabbitMQPersistentConnection>(service =>
                 {
@@ -128,7 +130,7 @@
                     var logger = sp.GetRequiredService<ILogger<EventBusServiceBus>>();
                     var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
 
-                    return new EventBusServiceBus(serviceBusPersisterConnection, logger, eventBusSubcriptionsManager, subscriptionClientName, iLifetimeScope);
+                    return new EventBusServiceBus(serviceBusPersisterConnection, logger, eventBusSubcriptionsManager, iLifetimeScope);
                 });
             }
             else

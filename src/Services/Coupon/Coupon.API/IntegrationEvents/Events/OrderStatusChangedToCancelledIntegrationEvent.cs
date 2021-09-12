@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Coupon.API.IntegrationEvents.Events
 {
-    public class OrderStatusChangedToCancelledIntegrationEvent : IntegrationEvent
+    public record OrderStatusChangedToCancelledIntegrationEvent : IntegrationEvent
     {
         [JsonProperty]
         public int OrderId { get; private set; }

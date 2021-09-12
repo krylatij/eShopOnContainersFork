@@ -2,7 +2,7 @@
 
 namespace Coupon.API.IntegrationEvents.Events
 {
-    public class OrderCouponConfirmedIntegrationEvent : IntegrationEvent
+    public record OrderCouponConfirmedIntegrationEvent : IntegrationEvent
     {
         public int OrderId { get; }
 

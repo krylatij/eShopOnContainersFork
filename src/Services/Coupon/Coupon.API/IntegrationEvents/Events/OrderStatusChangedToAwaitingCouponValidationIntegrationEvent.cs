@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Coupon.API.IntegrationEvents.Events
 {
-    public class OrderStatusChangedToAwaitingCouponValidationIntegrationEvent : IntegrationEvent
+    public record OrderStatusChangedToAwaitingCouponValidationIntegrationEvent : IntegrationEvent
     {
         [JsonProperty]
         public int OrderId { get; private set; }

@@ -2,7 +2,7 @@
 
 namespace Coupon.API.IntegrationEvents.Events
 {
-    public class OrderCouponRejectedIntegrationEvent : IntegrationEvent
+    public record OrderCouponRejectedIntegrationEvent : IntegrationEvent
     {
         public int OrderId { get; }
 
