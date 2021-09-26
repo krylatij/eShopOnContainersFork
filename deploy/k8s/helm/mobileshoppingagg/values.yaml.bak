@@ -56,14 +56,9 @@ env:
     - name: urls__grpcCatalog
       key: internalurls__grpcCatalog
     - name: urls__grpcOrdering
-      key: internalurls__grpcOrdering
-    - name: urls__coupon
-      key: internalurls__coupon
-    - name: CouponUrlHC
-      key: internalurls__coupon__hc
+      key: internalurls__grpcOrdering      
     - name: IdentityUrlExternal
       key: urls__IdentityUrlExternal
-
       # values define environment variables with a fixed value (no configmap involved) (name is name of var, and value is its value)
   values:
     - name: ASPNETCORE_ENVIRONMENT

@@ -1,0 +1,12 @@
+
+
+
+d:\work\t-shape\project\eShopOnContainersFork\src>docker build -f Services/Basket/Basket.API/Dockerfile -t eshop/basket.api:linux-latest  .
+
+d:\work\t-shape\project\eShopOnContainersFork\src>docker build -f Web/WebSPA/Dockerfile -t eshop/webspa:linux-latest .
+
+
+
+
+D:\work\t-shape\project\eShopOnContainersFork\deploy\k8s\helm> .\deploy-all.ps1 -imageTag linux-latest -useLocalk8s $true -imagePullPolicy Never
+

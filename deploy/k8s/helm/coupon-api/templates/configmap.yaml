@@ -1,19 +1,18 @@
-kind: ConfigMap
+{{- $name := include "coupon-api.fullname" . -}}
+
 apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: coupon-cm
+  name: "cfg-{{ $name }}"
   labels:
-    app: eshop
-    service: coupon
-data:
-  ASPNETCORE_ENVIRONMENT: Development
-  ASPNETCORE_URLS: http://0.0.0.0:80
-  AzureServiceBusEnabled: "False"
-  CheckUpdateTime: "30000"
-  ConnectionString: mongodb://nosqldata
-  EventBusConnection: rabbitmq
-  identityUrl: http://identity-api
-  OrchestratorType: K8S
-  PATH_BASE: /coupon-api
-  Serilog__MinimumLevel__Override__coupon-api: Verbose
-  Serilog__MinimumLevel__Override__Microsoft.eShopOnContainers.BuildingBlocks.EventBusRabbitMQ: Verbose
+    app: {{ template "coupon-api.name" . }}
+    chart: {{ template "coupon-api.chart" .}}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data: 
+  coupon__ConnectionString: "mongodb://nosql-data:27017"
+  coupon__CouponMongoDatabase: {{ .Values.inf.mongo.coupon.db }} 
+  urls__IdentityUrl: http://{{ .Values.app.svc.identity }}
+  all__EventBusConnection: {{ .Values.inf.eventbus.constr }}
+  all__InstrumentationKey: "{{ .Values.inf.appinsights.key }}"
+  all__UseAzureServiceBus: "{{ .Values.inf.eventbus.useAzure }}"
