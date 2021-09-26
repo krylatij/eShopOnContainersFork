@@ -38,10 +38,17 @@ namespace Basket.API.IntegrationEvents.Events
 
         public CustomerBasket Basket { get; }
 
+        public string CodeDiscount { get; set; }
+
+        public int Discount { get; set; }
+
+
         public UserCheckoutAcceptedIntegrationEvent(string userId, string userName, string city, string street,
             string state, string country, string zipCode, string cardNumber, string cardHolderName,
             DateTime cardExpiration, string cardSecurityNumber, int cardTypeId, string buyer, Guid requestId,
-            CustomerBasket basket)
+            CustomerBasket basket,
+            string codeDiscount,
+            int discount)
         {
             UserId = userId;
             UserName = userName;
@@ -58,6 +65,8 @@ namespace Basket.API.IntegrationEvents.Events
             Buyer = buyer;
             Basket = basket;
             RequestId = requestId;
+            CodeDiscount = codeDiscount;
+            Discount = discount;
         }
 
     }

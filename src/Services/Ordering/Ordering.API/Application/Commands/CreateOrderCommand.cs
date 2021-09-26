@@ -60,6 +60,13 @@ namespace Microsoft.eShopOnContainers.Services.Ordering.API.Application.Commands
         public int CardTypeId { get; private set; }
 
         [DataMember]
+        public string CodeDiscount { get; private set; }
+
+        [DataMember]
+        public decimal Discount { get; private set; }
+
+
+        [DataMember]
         public IEnumerable<OrderItemDTO> OrderItems => _orderItems;
 
         public CreateOrderCommand()
@@ -69,7 +76,7 @@ namespace Microsoft.eShopOnContainers.Services.Ordering.API.Application.Commands
 
         public CreateOrderCommand(List<BasketItem> basketItems, string userId, string userName, string city, string street, string state, string country, string zipcode,
             string cardNumber, string cardHolderName, DateTime cardExpiration,
-            string cardSecurityNumber, int cardTypeId) : this()
+            string cardSecurityNumber, int cardTypeId, string codeDiscount, decimal discount) : this()
         {
             _orderItems = basketItems.ToOrderItemsDTO().ToList();
             UserId = userId;
@@ -85,6 +92,8 @@ namespace Microsoft.eShopOnContainers.Services.Ordering.API.Application.Commands
             CardSecurityNumber = cardSecurityNumber;
             CardTypeId = cardTypeId;
             CardExpiration = cardExpiration;
+            CodeDiscount = codeDiscount;
+            Discount = discount;
         }
 
 

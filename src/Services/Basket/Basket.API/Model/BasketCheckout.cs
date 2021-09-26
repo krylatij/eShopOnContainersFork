@@ -27,6 +27,11 @@ namespace Basket.API.Model
         public string Buyer { get; set; }
 
         public Guid RequestId { get; set; }
+
+        public string Coupon { get; set; }
+
+        public int Discount { get; set; }
+
     }
 }
 
