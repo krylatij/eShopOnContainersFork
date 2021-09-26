@@ -3,12 +3,12 @@
     using BuildingBlocks.EventBus.Events;
     using System.Collections.Generic;
 
-    public record OrderStatusChangedToAwaitingValidationIntegrationEvent : IntegrationEvent
+    public record OrderStatusChangedToAwaitingStockValidationIntegrationEvent : IntegrationEvent
     {
         public int OrderId { get; }
         public IEnumerable<OrderStockItem> OrderStockItems { get; }
 
-        public OrderStatusChangedToAwaitingValidationIntegrationEvent(int orderId,
+        public OrderStatusChangedToAwaitingStockValidationIntegrationEvent(int orderId,
             IEnumerable<OrderStockItem> orderStockItems)
         {
             OrderId = orderId;
@@ -16,7 +16,7 @@
         }
     }
 
-    public record OrderStockItem
+    public class OrderStockItem
     {
         public int ProductId { get; }
         public int Units { get; }

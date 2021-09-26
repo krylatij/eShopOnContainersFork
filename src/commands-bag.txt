@@ -7,6 +7,8 @@ d:\work\t-shape\project\eShopOnContainersFork\src>docker build -f Services/Order
 d:\work\t-shape\project\eShopOnContainersFork\src>docker build -f Services/Ordering/Ordering.BackgroundTasks/Dockerfile -t eshop/ordering-backgroundtasks:linux-latest .
 d:\work\t-shape\project\eShopOnContainersFork\src>docker build -f Services/Ordering/Ordering.SignalrHub/Dockerfile -t eshop/ordering.signalrhub:linux-latest .
 
+d:\work\t-shape\project\eShopOnContainersFork\src>docker build -f Services/Catalog/Catalog.API/Dockerfile -t eshop/catalog.api:linux-latest .
+
 d:\work\t-shape\project\eShopOnContainersFork\src>docker build -f Web/WebSPA/Dockerfile -t eshop/webspa:linux-latest .
 
 

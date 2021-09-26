@@ -1,34 +1,34 @@
 ﻿namespace Microsoft.eShopOnContainers.Services.Catalog.API.IntegrationEvents.EventHandling
 {
     using BuildingBlocks.EventBus.Abstractions;
+    using System.Threading.Tasks;
     using BuildingBlocks.EventBus.Events;
-    using global::Catalog.API.IntegrationEvents;
     using Infrastructure;
-    using IntegrationEvents.Events;
-    using Microsoft.Extensions.Logging;
-    using Serilog.Context;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Threading.Tasks;
+    using global::Catalog.API.IntegrationEvents;
+    using IntegrationEvents.Events;
+    using Serilog.Context;
+    using Microsoft.Extensions.Logging;
 
-    public class OrderStatusChangedToAwaitingValidationIntegrationEventHandler :
-        IIntegrationEventHandler<OrderStatusChangedToAwaitingValidationIntegrationEvent>
+    public class OrderStatusChangedToAwaitingStockValidationIntegrationEventHandler : 
+        IIntegrationEventHandler<OrderStatusChangedToAwaitingStockValidationIntegrationEvent>
     {
         private readonly CatalogContext _catalogContext;
         private readonly ICatalogIntegrationEventService _catalogIntegrationEventService;
-        private readonly ILogger<OrderStatusChangedToAwaitingValidationIntegrationEventHandler> _logger;
+        private readonly ILogger<OrderStatusChangedToAwaitingStockValidationIntegrationEventHandler> _logger;
 
-        public OrderStatusChangedToAwaitingValidationIntegrationEventHandler(
+        public OrderStatusChangedToAwaitingStockValidationIntegrationEventHandler(
             CatalogContext catalogContext,
             ICatalogIntegrationEventService catalogIntegrationEventService,
-            ILogger<OrderStatusChangedToAwaitingValidationIntegrationEventHandler> logger)
+            ILogger<OrderStatusChangedToAwaitingStockValidationIntegrationEventHandler> logger)
         {
             _catalogContext = catalogContext;
             _catalogIntegrationEventService = catalogIntegrationEventService;
             _logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
         }
 
-        public async Task Handle(OrderStatusChangedToAwaitingValidationIntegrationEvent @event)
+        public async Task Handle(OrderStatusChangedToAwaitingStockValidationIntegrationEvent @event)
         {
             using (LogContext.PushProperty("IntegrationEventContext", $"{@event.Id}-{Program.AppName}"))
             {
@@ -44,6 +44,8 @@
 
                     confirmedOrderStockItems.Add(confirmedOrderStockItem);
                 }
+
+                await Task.Delay(3000);
 
                 var confirmedIntegrationEvent = confirmedOrderStockItems.Any(c => !c.HasStock)
                     ? (IntegrationEvent)new OrderStockRejectedIntegrationEvent(@event.OrderId, confirmedOrderStockItems)

@@ -120,7 +120,7 @@ namespace Microsoft.eShopOnContainers.Services.Catalog.API
         protected virtual void ConfigureEventBus(IApplicationBuilder app)
         {
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
-            eventBus.Subscribe<OrderStatusChangedToAwaitingStockValidationIntegrationEvent, OrderStatusChangedToAwaitingStockValidationIntegrationEventHandler>();
+            eventBus.Subscribe<OrderStatusChangedToAwaitingValidationIntegrationEvent, OrderStatusChangedToAwaitingValidationIntegrationEventHandler>();
             eventBus.Subscribe<OrderStatusChangedToPaidIntegrationEvent, OrderStatusChangedToPaidIntegrationEventHandler>();
         }
     }
@@ -360,7 +360,7 @@ namespace Microsoft.eShopOnContainers.Services.Catalog.API
             }
 
             services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
-            services.AddTransient<OrderStatusChangedToAwaitingStockValidationIntegrationEventHandler>();
+            services.AddTransient<OrderStatusChangedToAwaitingValidationIntegrationEventHandler>();
             services.AddTransient<OrderStatusChangedToPaidIntegrationEventHandler>();
 
             return services;
