@@ -1,4 +1,6 @@
-﻿namespace Coupon.API.Controllers
+﻿using Microsoft.Extensions.Logging;
+
+namespace Coupon.API.Controllers
 {
     using System.Net;
     using System.Threading.Tasks;
@@ -16,11 +18,13 @@
     {
         private readonly ICouponRepository _couponRepository;
         private readonly IMapper<CouponDto, Coupon> _mapper;
+        private readonly ILogger<CouponController> _logger;
 
-        public CouponController(ICouponRepository couponRepository, IMapper<CouponDto, Coupon> mapper)
+        public CouponController(ICouponRepository couponRepository, IMapper<CouponDto, Coupon> mapper, ILogger<CouponController> logger)
         {
             _couponRepository = couponRepository;
             _mapper = mapper;
+            _logger = logger;
         }
 
         [HttpGet("{code}")]
@@ -29,15 +33,18 @@
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<CouponDto>> GetCouponByCodeAsync(string code)
         {
+            _logger.LogInformation($"Getting coupon with code '{code}'.");
             var coupon = await _couponRepository.FindCouponByCodeAsync(code);
 
             if (coupon is null || coupon.Consumed)
             {
-                return NotFound();
+                _logger.LogInformation($"Coupon with code '{code}' was not found.");
+                return NotFound("Not found or consumed");
             }
 
             var couponDto = _mapper.Translate(coupon);
 
+            _logger.LogInformation($"Coupon with code '{code}' was found.");
             return couponDto;
         }
     }
