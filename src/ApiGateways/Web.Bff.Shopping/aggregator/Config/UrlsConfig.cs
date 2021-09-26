@@ -35,6 +35,8 @@ namespace Microsoft.eShopOnContainers.Web.Shopping.HttpAggregator.Config
 
         public string Orders { get; set; }
 
+        public string Coupon { get; set; }
+
         public string GrpcBasket { get; set; }
 
         public string GrpcCatalog { get; set; }

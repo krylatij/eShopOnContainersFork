@@ -189,6 +189,10 @@ namespace Microsoft.eShopOnContainers.Web.Shopping.HttpAggregator
                 .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
                 .AddDevspacesSupport();
 
+            services.AddScoped<ICouponService, CouponService>();
+            services.AddHttpClient<ICouponService, CouponService>()
+                .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
+
             return services;
         }
 
@@ -197,7 +201,7 @@ namespace Microsoft.eShopOnContainers.Web.Shopping.HttpAggregator
             services.AddTransient<GrpcExceptionInterceptor>();
 
             services.AddScoped<IBasketService, BasketService>();
-
+        
             services.AddGrpcClient<Basket.BasketClient>((services, options) =>
             {
                 var basketApi = services.GetRequiredService<IOptions<UrlsConfig>>().Value.GrpcBasket;
