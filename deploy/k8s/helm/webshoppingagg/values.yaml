@@ -57,6 +57,10 @@ env:
       key: internalurls__grpcCatalog
     - name: urls__grpcOrdering
       key: internalurls__grpcOrdering
+    - name: urls__coupon
+      key: internalurls__coupon
+    - name: CouponUrlHC
+      key: internalurls__coupon__hc
     - name: IdentityUrlExternal
       key: urls__IdentityUrlExternal
 

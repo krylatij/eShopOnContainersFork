@@ -43,6 +43,7 @@ namespace Microsoft.eShopOnContainers.Web.Shopping.HttpAggregator
                 .AddUrlGroup(new Uri(Configuration["OrderingUrlHC"]), name: "orderingapi-check", tags: new string[] { "orderingapi" })
                 .AddUrlGroup(new Uri(Configuration["BasketUrlHC"]), name: "basketapi-check", tags: new string[] { "basketapi" })
                 .AddUrlGroup(new Uri(Configuration["IdentityUrlHC"]), name: "identityapi-check", tags: new string[] { "identityapi" })
+                .AddUrlGroup(new Uri(Configuration["CouponUrlHC"]), name: "couponapi-check", tags: new string[] { "couponapi" })
                 .AddUrlGroup(new Uri(Configuration["PaymentUrlHC"]), name: "paymentapi-check", tags: new string[] { "paymentapi" });
 
             services.AddCustomMvc(Configuration)

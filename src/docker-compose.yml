@@ -50,6 +50,7 @@ services:
       context: .
       dockerfile: Services/Coupon/Coupon.API/Dockerfile
     depends_on:
+      - nosqldata
       - rabbitmq
 
   ordering-api:
