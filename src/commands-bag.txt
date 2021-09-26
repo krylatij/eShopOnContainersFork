@@ -4,7 +4,7 @@
 d:\work\t-shape\project\eShopOnContainersFork\src>docker build -f Services/Basket/Basket.API/Dockerfile -t eshop/basket.api:linux-latest  .
 
 d:\work\t-shape\project\eShopOnContainersFork\src>docker build -f Services/Ordering/Ordering.API/Dockerfile -t eshop/ordering.api:linux-latest .
-d:\work\t-shape\project\eShopOnContainersFork\src>docker build -f Services/Ordering/Ordering.BackgroundTasks/Dockerfile -t eshop/ordering-backgroundtasks:linux-latest .
+d:\work\t-shape\project\eShopOnContainersFork\src>docker build -f Services/Ordering/Ordering.BackgroundTasks/Dockerfile -t eshop/ordering.backgroundtasks:linux-latest .
 d:\work\t-shape\project\eShopOnContainersFork\src>docker build -f Services/Ordering/Ordering.SignalrHub/Dockerfile -t eshop/ordering.signalrhub:linux-latest .
 
 d:\work\t-shape\project\eShopOnContainersFork\src>docker build -f Services/Catalog/Catalog.API/Dockerfile -t eshop/catalog.api:linux-latest .

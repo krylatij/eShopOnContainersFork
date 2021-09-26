@@ -174,7 +174,7 @@ namespace Microsoft.eShopOnContainers.Web.Shopping.HttpAggregator.Controllers
 
             if (!response.IsSuccessStatusCode)
             {
-                return NotFound();
+                return NotFound("coupon not found");
             }
 
             var couponResponse = await response.Content.ReadAsStringAsync();

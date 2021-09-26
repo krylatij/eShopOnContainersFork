@@ -107,6 +107,18 @@
         ],
         "UpstreamPathTemplate": "/payment-api/{everything}",
         "UpstreamHttpMethod": []
+      },
+	  {
+        "DownstreamPathTemplate": "/{everything}",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "coupon.api",
+            "Port": 80
+          }
+        ],
+        "UpstreamPathTemplate": "/coupon-api/{everything}",
+        "UpstreamHttpMethod": []
       }
   
     ],
