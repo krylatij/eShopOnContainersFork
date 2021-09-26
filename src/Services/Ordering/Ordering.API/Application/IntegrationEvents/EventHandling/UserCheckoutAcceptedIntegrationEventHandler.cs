@@ -47,7 +47,7 @@ namespace Ordering.API.Application.IntegrationEvents.EventHandling
                         var createOrderCommand = new CreateOrderCommand(@event.Basket.Items, @event.UserId, @event.UserName, @event.City, @event.Street,
                             @event.State, @event.Country, @event.ZipCode,
                             @event.CardNumber, @event.CardHolderName, @event.CardExpiration,
-                            @event.CardSecurityNumber, @event.CardTypeId);
+                            @event.CardSecurityNumber, @event.CardTypeId, @event.CodeDiscount, @event.Discount);
 
                         var requestCreateOrder = new IdentifiedCommand<CreateOrderCommand, bool>(createOrderCommand, @event.RequestId);
 

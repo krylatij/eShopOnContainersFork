@@ -1,15 +1,15 @@
-﻿using MediatR;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
+using MediatR;
 
 namespace Ordering.API.Application.Commands
 {
-    public class SetStockConfirmedOrderStatusCommand : IRequest<bool>
+    public class StockConfirmedCommand : IRequest<bool>
     {
 
         [DataMember]
         public int OrderNumber { get; private set; }
 
-        public SetStockConfirmedOrderStatusCommand(int orderNumber)
+        public StockConfirmedCommand(int orderNumber)
         {
             OrderNumber = orderNumber;
         }

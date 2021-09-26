@@ -56,13 +56,7 @@ namespace Ordering.Infrastructure.EntityConfigurations
                 .HasColumnName("PaymentMethodId")
                 .IsRequired(false);
 
-            orderConfiguration
-                .Property<string>("Description")
-                .IsRequired(false);
-
-            orderConfiguration
-                .Property(e => e.DiscountCode)
-                .HasMaxLength(50);
+            orderConfiguration.Property<string>("Description").IsRequired(false);
 
             var navigation = orderConfiguration.Metadata.FindNavigation(nameof(Order.OrderItems));
 

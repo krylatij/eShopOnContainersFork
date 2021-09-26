@@ -2,19 +2,22 @@
 
 namespace Ordering.API.Application.IntegrationEvents.Events
 {
-    public record OrderStatusChangedToCancelledIntegrationEvent : IntegrationEvent
+    public record OrderStatusChangedToAwaitingCouponValidationIntegrationEvent : IntegrationEvent
     {
         public int OrderId { get; }
-        public string OrderStatus { get; }
-        public string BuyerName { get; }
-        public string DiscountCode { get; }
 
-        public OrderStatusChangedToCancelledIntegrationEvent(int orderId, string orderStatus, string buyerName, string discountCode)
+        public string OrderStatus { get; }
+
+        public string BuyerName { get; }
+
+        public string Code { get; set; }
+
+        public OrderStatusChangedToAwaitingCouponValidationIntegrationEvent(int orderId, string orderStatus, string buyerName, string code)
         {
             OrderId = orderId;
             OrderStatus = orderStatus;
             BuyerName = buyerName;
-            DiscountCode = discountCode;
+            Code = code;
         }
     }
 }

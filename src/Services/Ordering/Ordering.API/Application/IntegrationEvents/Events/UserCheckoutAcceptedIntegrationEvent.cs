@@ -36,10 +36,15 @@ namespace Ordering.API.Application.IntegrationEvents.Events
 
         public CustomerBasket Basket { get; }
 
+        public string CodeDiscount { get; set; }
+
+        public int Discount { get; set; }
+
+
         public UserCheckoutAcceptedIntegrationEvent(string userId, string userName, string city, string street,
             string state, string country, string zipCode, string cardNumber, string cardHolderName,
             DateTime cardExpiration, string cardSecurityNumber, int cardTypeId, string buyer, Guid requestId,
-            CustomerBasket basket)
+            CustomerBasket basket, string codeDiscount, int discount)
         {
             UserId = userId;
             City = city;
@@ -56,7 +61,11 @@ namespace Ordering.API.Application.IntegrationEvents.Events
             Basket = basket;
             RequestId = requestId;
             UserName = userName;
+            CodeDiscount = codeDiscount;
+            Discount = discount;
+
         }
+
 
     }
 }

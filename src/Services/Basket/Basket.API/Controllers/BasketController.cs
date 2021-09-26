@@ -85,7 +85,9 @@ namespace Microsoft.eShopOnContainers.Services.Basket.API.Controllers
                 basketCheckout.CardTypeId, 
                 basketCheckout.Buyer, 
                 basketCheckout.RequestId, 
-                basket);
+                basket,
+                basketCheckout.Coupon,
+                basketCheckout.Discount);
 
             // Once basket is checkout, sends an integration event to
             // ordering.api to convert basket to order and proceeds with

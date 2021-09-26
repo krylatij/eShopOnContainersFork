@@ -1,29 +1,29 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
 using Microsoft.Extensions.Logging;
-using Ordering.SignalrHub.IntegrationEvents.Events;
 using Serilog.Context;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
-namespace Ordering.SignalrHub.IntegrationEvents.EventHandling
+namespace Ordering.SignalrHub.IntegrationEvents
 {
-    public class OrderStatusChangedToStockConfirmedIntegrationEventHandler :
-        IIntegrationEventHandler<OrderStatusChangedToStockConfirmedIntegrationEvent>
+    public class OrderStatusChangedToAwaitingStockValidationIntegrationEventHandler : IIntegrationEventHandler<OrderStatusChangedToAwaitingStockValidationIntegrationEvent>
     {
         private readonly IHubContext<NotificationsHub> _hubContext;
-        private readonly ILogger<OrderStatusChangedToStockConfirmedIntegrationEventHandler> _logger;
+        private readonly ILogger<OrderStatusChangedToAwaitingStockValidationIntegrationEventHandler> _logger;
 
-        public OrderStatusChangedToStockConfirmedIntegrationEventHandler(
+        public OrderStatusChangedToAwaitingStockValidationIntegrationEventHandler(
             IHubContext<NotificationsHub> hubContext,
-            ILogger<OrderStatusChangedToStockConfirmedIntegrationEventHandler> logger)
+            ILogger<OrderStatusChangedToAwaitingStockValidationIntegrationEventHandler> logger)
         {
             _hubContext = hubContext ?? throw new ArgumentNullException(nameof(hubContext));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
 
-        public async Task Handle(OrderStatusChangedToStockConfirmedIntegrationEvent @event)
+        public async Task Handle(OrderStatusChangedToAwaitingStockValidationIntegrationEvent @event)
         {
             using (LogContext.PushProperty("IntegrationEventContext", $"{@event.Id}-{Program.AppName}"))
             {

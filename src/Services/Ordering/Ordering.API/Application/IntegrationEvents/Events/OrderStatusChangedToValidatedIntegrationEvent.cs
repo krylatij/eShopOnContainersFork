@@ -2,17 +2,19 @@
 {
     using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Events;
 
-    public record OrderStatusChangedToStockConfirmedIntegrationEvent : IntegrationEvent
+    public record OrderStatusChangedToValidatedIntegrationEvent : IntegrationEvent
     {
         public int OrderId { get; }
         public string OrderStatus { get; }
         public string BuyerName { get; }
+        public decimal Total { get; }
 
-        public OrderStatusChangedToStockConfirmedIntegrationEvent(int orderId, string orderStatus, string buyerName)
+        public OrderStatusChangedToValidatedIntegrationEvent(int orderId, string orderStatus, string buyerName, decimal total)
         {
             OrderId = orderId;
             OrderStatus = orderStatus;
             BuyerName = buyerName;
+            Total = total;
         }
     }
 }

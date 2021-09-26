@@ -1,14 +1,15 @@
 ﻿using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Events;
+using System.Collections.Generic;
 
-namespace Ordering.SignalrHub.IntegrationEvents.Events
+namespace Ordering.SignalrHub.IntegrationEvents
 {
-    public record OrderStatusChangedToStockConfirmedIntegrationEvent : IntegrationEvent
+    public record OrderStatusChangedToAwaitingStockValidationIntegrationEvent : IntegrationEvent
     {
         public int OrderId { get; }
         public string OrderStatus { get; }
         public string BuyerName { get; }
 
-        public OrderStatusChangedToStockConfirmedIntegrationEvent(int orderId, string orderStatus, string buyerName)
+        public OrderStatusChangedToAwaitingStockValidationIntegrationEvent(int orderId, string orderStatus, string buyerName)
         {
             OrderId = orderId;
             OrderStatus = orderStatus;

@@ -146,9 +146,8 @@
             return new List<OrderStatus>()
             {
                 OrderStatus.Submitted,
-                OrderStatus.AwaitingStockValidation,
-                OrderStatus.Validated,
-                OrderStatus.AwaitingCouponValidation,
+                OrderStatus.AwaitingValidation,
+                OrderStatus.StockConfirmed,
                 OrderStatus.Paid,
                 OrderStatus.Shipped,
                 OrderStatus.Cancelled
