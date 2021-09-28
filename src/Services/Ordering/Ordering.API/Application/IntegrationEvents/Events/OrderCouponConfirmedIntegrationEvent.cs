@@ -6,9 +6,9 @@
     public record OrderCouponConfirmedIntegrationEvent : IntegrationEvent
     {
         [JsonProperty]
-        public int OrderId { get; private set; }
+        public int OrderId { get; set; }
 
         [JsonProperty]
-        public int Discount { get; private set; }
+        public int Discount { get; set; }
     }
 }

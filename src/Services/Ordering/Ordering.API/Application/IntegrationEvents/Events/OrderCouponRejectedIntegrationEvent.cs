@@ -6,9 +6,9 @@
     public record OrderCouponRejectedIntegrationEvent : IntegrationEvent
     {
         [JsonProperty]
-        public int OrderId { get; private set; }
+        public int OrderId { get; set; }
 
         [JsonProperty]
-        public string Code { get; private set; }
+        public string Code { get; set; }
     }
 }
