@@ -68,7 +68,7 @@ namespace Microsoft.eShopOnContainers.Services.Basket.API.Controllers
             {
                 return BadRequest();
             }
-
+            
             var userName = this.HttpContext.User.FindFirst(x => x.Type == ClaimTypes.Name).Value;
 
             var eventMessage = new UserCheckoutAcceptedIntegrationEvent(userId, 

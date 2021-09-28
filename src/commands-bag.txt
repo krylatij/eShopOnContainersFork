@@ -17,7 +17,13 @@ d:\work\t-shape\project\eShopOnContainersFork\src>docker build -f Web/WebSPA/Doc
 d:\work\t-shape\project\eShopOnContainersFork\src>docker build -f ApiGateways/Web.Bff.Shopping/aggregator/Dockerfile -t eshop/webshoppingagg:linux-latest .
 
 
-
+kubectl apply -f mandatory.yaml
+kubectl apply -f local-cm.yaml
+kubectl apply -f local-svc.yaml
 
 D:\work\t-shape\project\eShopOnContainersFork\deploy\k8s\helm> .\deploy-all.ps1 -imageTag linux-latest -useLocalk8s $true -imagePullPolicy Never
 
+
+
+
+/api/v1/Basket/coupon/{code}

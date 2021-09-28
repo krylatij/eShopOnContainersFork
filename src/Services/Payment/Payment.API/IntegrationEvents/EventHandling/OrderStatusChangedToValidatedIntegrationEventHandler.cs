@@ -8,17 +8,17 @@
     using Serilog.Context;
     using System.Threading.Tasks;
 
-    public class OrderStatusChangedToStockConfirmedIntegrationEventHandler :
-        IIntegrationEventHandler<OrderStatusChangedToStockConfirmedIntegrationEvent>
+    public class OrderStatusChangedToValidatedIntegrationEventHandler :
+        IIntegrationEventHandler<OrderStatusChangedToValidatedIntegrationEvent>
     {
         private readonly IEventBus _eventBus;
         private readonly PaymentSettings _settings;
-        private readonly ILogger<OrderStatusChangedToStockConfirmedIntegrationEventHandler> _logger;
+        private readonly ILogger<OrderStatusChangedToValidatedIntegrationEventHandler> _logger;
 
-        public OrderStatusChangedToStockConfirmedIntegrationEventHandler(
+        public OrderStatusChangedToValidatedIntegrationEventHandler(
             IEventBus eventBus,
             IOptionsSnapshot<PaymentSettings> settings,
-            ILogger<OrderStatusChangedToStockConfirmedIntegrationEventHandler> logger)
+            ILogger<OrderStatusChangedToValidatedIntegrationEventHandler> logger)
         {
             _eventBus = eventBus;
             _settings = settings.Value;
@@ -27,7 +27,7 @@
             _logger.LogTrace("PaymentSettings: {@PaymentSettings}", _settings);
         }
 
-        public async Task Handle(OrderStatusChangedToStockConfirmedIntegrationEvent @event)
+        public async Task Handle(OrderStatusChangedToValidatedIntegrationEvent @event)
         {
             using (LogContext.PushProperty("IntegrationEventContext", $"{@event.Id}-{Program.AppName}"))
             {
@@ -36,17 +36,21 @@
                 IntegrationEvent orderPaymentIntegrationEvent;
 
                 //Business feature comment:
-                // When OrderStatusChangedToStockConfirmed Integration Event is handled.
+                // When OrderStatusChangedToValidated Integration Event is handled.
                 // Here we're simulating that we'd be performing the payment against any payment gateway
-                // Instead of a real payment we just take the env. var to simulate the payment 
+                // Instead of a real payment we just take the PaymentLimitToSucceed to simulate payment approval
                 // The payment can be successful or it can fail
 
-                if (_settings.PaymentSucceeded)
+                await Task.Delay(3000); // Checking with the bank 😉
+
+                if (_settings.PaymentSucceeded && (!_settings.MaxOrderTotal.HasValue || @event.Total < _settings.MaxOrderTotal ))
                 {
                     orderPaymentIntegrationEvent = new OrderPaymentSucceededIntegrationEvent(@event.OrderId);
                 }
                 else
                 {
+                    _logger.LogWarning("----- Payment for ${Total} rejected for order {OrderId} because of service configuration", @event.Total, @event.OrderId);
+
                     orderPaymentIntegrationEvent = new OrderPaymentFailedIntegrationEvent(@event.OrderId);
                 }
 
