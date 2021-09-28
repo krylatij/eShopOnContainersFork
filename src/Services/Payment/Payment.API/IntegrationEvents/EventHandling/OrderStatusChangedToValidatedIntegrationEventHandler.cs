@@ -43,14 +43,12 @@
 
                 await Task.Delay(3000); // Checking with the bank 😉
 
-                if (_settings.PaymentSucceeded && (!_settings.MaxOrderTotal.HasValue || @event.Total < _settings.MaxOrderTotal ))
+                if (_settings.PaymentSucceeded)
                 {
                     orderPaymentIntegrationEvent = new OrderPaymentSucceededIntegrationEvent(@event.OrderId);
                 }
                 else
                 {
-                    _logger.LogWarning("----- Payment for ${Total} rejected for order {OrderId} because of service configuration", @event.Total, @event.OrderId);
-
                     orderPaymentIntegrationEvent = new OrderPaymentFailedIntegrationEvent(@event.OrderId);
                 }
 

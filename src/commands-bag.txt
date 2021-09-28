@@ -11,15 +11,20 @@ d:\work\t-shape\project\eShopOnContainersFork\src>docker build -f Services/Catal
 
 d:\work\t-shape\project\eShopOnContainersFork\src>docker build -f Services/Coupon/Coupon.API/Dockerfile -t eshop/coupon.api:linux-latest .
 
+d:\work\t-shape\project\eShopOnContainersFork\src>docker build -f Services/Payment/Payment.API/Dockerfile -t eshop/payment.api:linux-latest .
+
 d:\work\t-shape\project\eShopOnContainersFork\src>docker build -f Web/WebSPA/Dockerfile -t eshop/webspa:linux-latest .
 
 
 d:\work\t-shape\project\eShopOnContainersFork\src>docker build -f ApiGateways/Web.Bff.Shopping/aggregator/Dockerfile -t eshop/webshoppingagg:linux-latest .
 
 
-kubectl apply -f mandatory.yaml
-kubectl apply -f local-cm.yaml
-kubectl apply -f local-svc.yaml
+kubectl apply -f .\nodeports\rabbitmq-admin.yaml
+kubectl apply -f .\nodeports\rabbitmq-admin.yaml
+
+kubectl apply -f .\nginx-ingress\mandatory.yaml
+kubectl apply -f .\nginx-ingress\local-cm.yaml
+kubectl apply -f .\nginx-ingress\local-svc.yaml
 
 D:\work\t-shape\project\eShopOnContainersFork\deploy\k8s\helm> .\deploy-all.ps1 -imageTag linux-latest -useLocalk8s $true -imagePullPolicy Never
 

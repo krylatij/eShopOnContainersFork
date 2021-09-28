@@ -155,14 +155,14 @@ namespace Payment.API
                 });
             }
 
-            services.AddTransient<OrderStatusChangedToStockConfirmedIntegrationEventHandler>();
+            services.AddTransient<OrderStatusChangedToValidatedIntegrationEventHandler>();
             services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
         }
 
         private void ConfigureEventBus(IApplicationBuilder app)
         {
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
-            eventBus.Subscribe<OrderStatusChangedToStockConfirmedIntegrationEvent, OrderStatusChangedToStockConfirmedIntegrationEventHandler>();
+            eventBus.Subscribe<OrderStatusChangedToValidatedIntegrationEvent, OrderStatusChangedToValidatedIntegrationEventHandler>();
         }
     }
 
