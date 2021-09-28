@@ -17,13 +17,11 @@ namespace Microsoft.eShopOnContainers.Web.Shopping.HttpAggregator.Controllers
     {
         private readonly ICatalogService _catalog;
         private readonly IBasketService _basket;
-        private readonly ICouponService _coupon;
-
-        public BasketController(ICatalogService catalogService, IBasketService basketService, ICouponService coupon)
+    
+        public BasketController(ICatalogService catalogService, IBasketService basketService)
         {
             _catalog = catalogService;
             _basket = basketService;
-            _coupon = coupon;
         }
 
         [HttpPost]
@@ -162,26 +160,6 @@ namespace Microsoft.eShopOnContainers.Web.Shopping.HttpAggregator.Controllers
             await _basket.UpdateAsync(currentBasket);
 
             return Ok();
-        }
-
-        [HttpGet]
-        [Route("coupon/{code}")]
-        [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        [ProducesResponseType(typeof(CouponData), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<CouponData>> CheckCouponAsync(string code)
-        {
-            var response = await _coupon.CheckCouponByCodeNumberAsync(code);
-
-            if (!response.IsSuccessStatusCode)
-            {
-                return NotFound("coupon not found");
-            }
-
-            var couponResponse = await response.Content.ReadAsStringAsync();
-
-            var data = JsonConvert.DeserializeObject<CouponData>(couponResponse);
-
-            return Ok(data);
         }
     }
 }

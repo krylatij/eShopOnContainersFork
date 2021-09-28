@@ -49,6 +49,19 @@ static_resources:
                 route:
                   auto_host_rewrite: true
                   cluster: ordering
+              - name: "cp-short"
+                match:
+                  prefix: "/cp/"
+                route:
+                  auto_host_rewrite: true
+                  prefix_rewrite: "/coupon-api/"
+                  cluster: coupon
+              - name: "cp-long"
+                match:
+                  prefix: "/coupon-api/"
+                route:
+                  auto_host_rewrite: true
+                  cluster: coupon
               - name: "h-long"
                 match:
                   prefix: "/hub/notificationhub"
@@ -131,6 +144,14 @@ static_resources:
     hosts:
     - socket_address:
         address: ordering-api
+        port_value: 80
+  - name: coupon
+    connect_timeout: 0.25s
+    type: strict_dns
+    lb_policy: round_robin
+    hosts:
+    - socket_address:
+        address: coupon-api
         port_value: 80
   - name: signalr-hub
     connect_timeout: 0.25s
