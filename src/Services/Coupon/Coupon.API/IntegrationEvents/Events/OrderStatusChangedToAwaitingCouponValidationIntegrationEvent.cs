@@ -5,12 +5,13 @@ namespace Coupon.API.IntegrationEvents.Events
 {
     public record OrderStatusChangedToAwaitingCouponValidationIntegrationEvent : IntegrationEvent
     {
-        public int OrderId { get; init; }
+        [JsonProperty]
+        public int OrderId { get; set; }
 
-        public string OrderStatus { get; init; }
+        public string OrderStatus { get; set; }
 
-        public string BuyerName { get; init; }
+        public string BuyerName { get; set; }
 
-        public string Code { get; init; }
+        public string Code { get; set; }
     }
 }
