@@ -29,6 +29,20 @@ kubectl apply -f .\nginx-ingress\local-svc.yaml
 D:\work\t-shape\project\eShopOnContainersFork\deploy\k8s\helm> .\deploy-all.ps1 -imageTag linux-latest -useLocalk8s $true -imagePullPolicy Never
 
 
-
+kubectl exec --stdin --tty eshop-webmvc-569d77977b-x2m89 -- /bin/bash
 
 /api/v1/Basket/coupon/{code}
+
+
+helm install webmvc -f app.yaml --values inf.yaml -f ingress_values_dockerk8s.yaml -f ingress_values_linkerd.yaml --set app.name=eshop --set inf.k8s.dns=localhost --set ingress.hosts={localhost} --set image.tag=linux-latest --set image.pullPolicy=Never --set inf.tls.enabled=$false --set inf.mesh.enabled=$false --set inf.k8s.local=$true 
+
+
+
+
+$chart "-f app.yaml --values inf.yaml -f $ingressValuesFile -f $ingressMeshAnnotationsFile --set app.name=$appName --set inf.k8s.dns=$dns --set ingress.hosts={$dns} --set image.tag=$imageTag --set image.pullPolicy=$imagePullPolicy --set inf.tls.enabled=$sslEnabled --set inf.mesh.enabled=$useMesh --set inf.k8s.local=$useLocalk8s" $useCustomRegistry
+        }
+
+
+helm uninstall eshop-webmvc
+
+helm install eshop-webmvc -f app.yaml --values inf.yaml -f ingress_values_dockerk8s.yaml -f ingress_values_linkerd.yaml --set app.name=eshop --set inf.k8s.dns=localhost  --set "ingress.hosts={localhost}" --set image.tag=linux-latest --set image.pullPolicy=Never --set inf.tls.enabled=$false --set inf.mesh.enabled=$false --set inf.k8s.local=$true webmvc
