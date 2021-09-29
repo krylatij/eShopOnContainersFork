@@ -42,8 +42,10 @@ env:
       key: urls__mvc
     - name: IdentityUrl
       key: urls__IdentityUrl
+    - name: IdentityUrlInternal
+      key: internalurls__identity
     - name: IdentityUrlHC
-      key: internalurls__identity__hc      
+      key: internalurls__identity__hc
     - name: SignalrHubUrl
       key: urls__apigwws
       # values define environment variables with a fixed value (no configmap involved) (name is name of var, and value is its value)

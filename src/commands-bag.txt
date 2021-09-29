@@ -15,6 +15,8 @@ d:\work\t-shape\project\eShopOnContainersFork\src>docker build -f Services/Payme
 
 d:\work\t-shape\project\eShopOnContainersFork\src>docker build -f Web/WebSPA/Dockerfile -t eshop/webspa:linux-latest .
 
+d:\work\t-shape\project\eShopOnContainersFork\src>docker build -f Web/WebMVC/Dockerfile -t eshop/webmvc:linux-latest .
+
 
 d:\work\t-shape\project\eShopOnContainersFork\src>docker build -f ApiGateways/Web.Bff.Shopping/aggregator/Dockerfile -t eshop/webshoppingagg:linux-latest .
 
@@ -33,14 +35,14 @@ kubectl exec --stdin --tty eshop-webmvc-569d77977b-x2m89 -- /bin/bash
 
 /api/v1/Basket/coupon/{code}
 
+helm get all eshop-webmvc
+
 
 helm install webmvc -f app.yaml --values inf.yaml -f ingress_values_dockerk8s.yaml -f ingress_values_linkerd.yaml --set app.name=eshop --set inf.k8s.dns=localhost --set ingress.hosts={localhost} --set image.tag=linux-latest --set image.pullPolicy=Never --set inf.tls.enabled=$false --set inf.mesh.enabled=$false --set inf.k8s.local=$true 
 
-
-
-
 $chart "-f app.yaml --values inf.yaml -f $ingressValuesFile -f $ingressMeshAnnotationsFile --set app.name=$appName --set inf.k8s.dns=$dns --set ingress.hosts={$dns} --set image.tag=$imageTag --set image.pullPolicy=$imagePullPolicy --set inf.tls.enabled=$sslEnabled --set inf.mesh.enabled=$useMesh --set inf.k8s.local=$useLocalk8s" $useCustomRegistry
         }
+
 
 
 helm uninstall eshop-webmvc

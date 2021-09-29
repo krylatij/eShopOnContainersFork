@@ -17,6 +17,7 @@ using Microsoft.IdentityModel.Logging;
 using StackExchange.Redis;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using WebMVC.Infrastructure;
 
 namespace Microsoft.eShopOnContainers.WebMVC
@@ -176,6 +177,7 @@ namespace Microsoft.eShopOnContainers.WebMVC
         public static IServiceCollection AddCustomAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
             var identityUrl = configuration.GetValue<string>("IdentityUrl");
+            var identityInternalUrl = configuration.GetValue<string>("IdentityInternalUrl");
             var callBackUrl = configuration.GetValue<string>("CallBackUrl");
             var sessionCookieLifetime = configuration.GetValue("SessionCookieLifetimeMinutes", 60);
 
@@ -189,6 +191,12 @@ namespace Microsoft.eShopOnContainers.WebMVC
             .AddCookie(setup => setup.ExpireTimeSpan = TimeSpan.FromMinutes(sessionCookieLifetime))
             .AddOpenIdConnect(options =>
             {
+                options.Configuration = new OpenIdConnectConfiguration
+                {
+                    AuthorizationEndpoint = $"{identityUrl}/connect/authorize",
+                };
+                options.MetadataAddress = $"{identityInternalUrl}/";
+            //    options.Configuration.
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.Authority = identityUrl.ToString();
                 options.SignedOutRedirectUri = callBackUrl.ToString();
@@ -204,6 +212,8 @@ namespace Microsoft.eShopOnContainers.WebMVC
                 options.Scope.Add("basket");
                 options.Scope.Add("webshoppingagg");
                 options.Scope.Add("orders.signalrhub");
+
+                
             });
 
             return services;
