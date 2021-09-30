@@ -191,12 +191,6 @@ namespace Microsoft.eShopOnContainers.WebMVC
             .AddCookie(setup => setup.ExpireTimeSpan = TimeSpan.FromMinutes(sessionCookieLifetime))
             .AddOpenIdConnect(options =>
             {
-                options.Configuration = new OpenIdConnectConfiguration
-                {
-                    AuthorizationEndpoint = $"{identityUrl}/connect/authorize",
-                };
-                options.MetadataAddress = $"{identityInternalUrl}/";
-            //    options.Configuration.
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.Authority = identityUrl.ToString();
                 options.SignedOutRedirectUri = callBackUrl.ToString();
@@ -212,8 +206,6 @@ namespace Microsoft.eShopOnContainers.WebMVC
                 options.Scope.Add("basket");
                 options.Scope.Add("webshoppingagg");
                 options.Scope.Add("orders.signalrhub");
-
-                
             });
 
             return services;

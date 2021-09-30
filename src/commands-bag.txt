@@ -21,12 +21,19 @@ d:\work\t-shape\project\eShopOnContainersFork\src>docker build -f Web/WebMVC/Doc
 d:\work\t-shape\project\eShopOnContainersFork\src>docker build -f ApiGateways/Web.Bff.Shopping/aggregator/Dockerfile -t eshop/webshoppingagg:linux-latest .
 
 
+kubectl apply -f nginx-ingress\local-dockerk8s\identityapi-cm-fix.yaml
+kubectl apply -f nginx-ingress\local-dockerk8s\mvc-cm-fix.yaml
+kubectl apply -f nginx-ingress\local-dockerk8s\mvc-fix.yaml
+
+
 kubectl apply -f .\nodeports\rabbitmq-admin.yaml
-kubectl apply -f .\nodeports\rabbitmq-admin.yaml
+kubectl apply -f .\nodeports\sql-service.yaml
 
 kubectl apply -f .\nginx-ingress\mandatory.yaml
 kubectl apply -f .\nginx-ingress\local-cm.yaml
 kubectl apply -f .\nginx-ingress\local-svc.yaml
+kubectl apply -f .\nginx-ingress\service-nodeport.yaml
+
 
 D:\work\t-shape\project\eShopOnContainersFork\deploy\k8s\helm> .\deploy-all.ps1 -imageTag linux-latest -useLocalk8s $true -imagePullPolicy Never
 
@@ -48,3 +55,34 @@ $chart "-f app.yaml --values inf.yaml -f $ingressValuesFile -f $ingressMeshAnnot
 helm uninstall eshop-webmvc
 
 helm install eshop-webmvc -f app.yaml --values inf.yaml -f ingress_values_dockerk8s.yaml -f ingress_values_linkerd.yaml --set app.name=eshop --set inf.k8s.dns=localhost  --set "ingress.hosts={localhost}" --set image.tag=linux-latest --set image.pullPolicy=Never --set inf.tls.enabled=$false --set inf.mesh.enabled=$false --set inf.k8s.local=$true webmvc
+
+
+
+Param(
+    [parameter(Mandatory=$false)][string]$registry,
+    [parameter(Mandatory=$false)][string]$dockerUser,
+    [parameter(Mandatory=$false)][string]$dockerPassword,
+    [parameter(Mandatory=$false)][string]$externalDns,
+    [parameter(Mandatory=$false)][string]$appName="eshop",
+    [parameter(Mandatory=$false)][bool]$deployInfrastructure=$true,
+    [parameter(Mandatory=$false)][bool]$deployCharts=$true,
+    [parameter(Mandatory=$false)][bool]$clean=$true,
+    [parameter(Mandatory=$false)][string]$aksName="",
+    [parameter(Mandatory=$false)][string]$aksRg="",
+    [parameter(Mandatory=$false)][string]$imageTag="latest",
+    [parameter(Mandatory=$false)][bool]$useLocalk8s=$false,
+    [parameter(Mandatory=$false)][bool]$useMesh=$false,
+    [parameter(Mandatory=$false)][string][ValidateSet('Always','IfNotPresent','Never', IgnoreCase=$false)]$imagePullPolicy="Always",
+    [parameter(Mandatory=$false)][string][ValidateSet('prod','staging','none','custom', IgnoreCase=$false)]$sslSupport = "none",
+    [parameter(Mandatory=$false)][string]$tlsSecretName = "eshop-tls-custom",
+    [parameter(Mandatory=$false)][string]$chartsToDeploy="*",
+    [parameter(Mandatory=$false)][string]$ingressMeshAnnotationsFile="ingress_values_linkerd.yaml"
+    )
+
+kubectl apply -f aks-httpaddon-cfg.yaml
+
+./deploy-all.ps1 -appName eshop -registry creshoppaid.azurecr.io -dockerUser creshoppaid -dockerPassword Jdrls/ZxBClFMbLjWkUFfbPtui4WNoUV -externalDns aks -aksName aks-eshop-dev-paid -aksRg rg-eshop-dev-paid -imageTag linux-latest -imagePullPolicy Always 
+
+az aks get-credentials --resource-group rg-eshop-dev-paid --name aks-eshop-dev-paid --admin
+
+az aks update -g rg-eshop-dev-paid -n aks-eshop-dev-paid --enable-azure-rbac
