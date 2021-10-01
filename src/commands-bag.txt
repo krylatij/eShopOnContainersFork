@@ -83,6 +83,19 @@ kubectl apply -f aks-httpaddon-cfg.yaml
 
 ./deploy-all.ps1 -appName eshop -registry creshoppaid.azurecr.io -dockerUser creshoppaid -dockerPassword Jdrls/ZxBClFMbLjWkUFfbPtui4WNoUV -externalDns aks -aksName aks-eshop-dev-paid -aksRg rg-eshop-dev-paid -imageTag linux-latest -imagePullPolicy Always 
 
+
+
+
+--set inf.registry.server=creshoppaid.azurecr.io --set inf.registry.login=creshoppaid --set inf.registry.pwd=Jdrls/ZxBClFMbLjWkUFfbPtui4WNoUV --set inf.registry.secretName=eshop-docker-scret
+
 az aks get-credentials --resource-group rg-eshop-dev-paid --name aks-eshop-dev-paid --admin
 
+az aks show -n aks-eshop-dev-paid -g rg-eshop-dev-paid --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName
+
 az aks update -g rg-eshop-dev-paid -n aks-eshop-dev-paid --enable-azure-rbac
+
+
+helm install eshop-webmvc -f deploy/k8s/helm/app.yaml --values deploy/k8s/helm/inf.yaml -f deploy/k8s/helm/ingress_values_dockerk8s.yaml -f deploy/k8s/helm/ingress_values_linkerd.yaml --set app.name=eshop --set inf.k8s.dns=localhost  --set "ingress.hosts={$(DnsServer)}" --set image.tag=linux-latest --set image.pullPolicy=Always --set inf.tls.enabled=$false --set inf.mesh.enabled=$false --set inf.registry.server=creshoppaid.azurecr.io --set inf.registry.login=creshoppaid --set inf.registry.pwd=Jdrls/ZxBClFMbLjWkUFfbPtui4WNoUV --set inf.registry.secretName=eshop-docker-scret /deploy/k8s/helm/webmvc/
+
+
+--set inf.registry.server=creshoppaid.azurecr.io --set inf.registry.login=creshoppaid --set inf.registry.pwd=Jdrls/ZxBClFMbLjWkUFfbPtui4WNoUV --set inf.registry.secretName=eshop-docker-scret
