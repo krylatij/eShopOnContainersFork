@@ -192,6 +192,7 @@ namespace Microsoft.eShopOnContainers.WebMVC
                 {
                     options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                     options.Authority = identityUrl.ToString();
+                    options.MetadataAddress = "";
                     options.SignedOutRedirectUri = callBackUrl.ToString();
                     options.ClientId = "mvc";
                     options.ClientSecret = "secret";
@@ -205,7 +206,24 @@ namespace Microsoft.eShopOnContainers.WebMVC
                     options.Scope.Add("basket");
                     options.Scope.Add("webshoppingagg");
                     options.Scope.Add("orders.signalrhub");
+                    options.Scope.Add("webhooks");
+                    options.Scope.Add("coupon");
+                    
                 });
+
+            /*
+                                 {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.OfflineAccess,
+                        "orders",
+                        "basket",
+                        "webshoppingagg",
+                        "orders.signalrhub",
+                        "webhooks",
+                        "coupon"
+                    },
+             */
 
             return services;
         }

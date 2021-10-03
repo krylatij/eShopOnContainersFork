@@ -99,3 +99,60 @@ helm install eshop-webmvc -f deploy/k8s/helm/app.yaml --values deploy/k8s/helm/i
 
 
 --set inf.registry.server=creshoppaid.azurecr.io --set inf.registry.login=creshoppaid --set inf.registry.pwd=Jdrls/ZxBClFMbLjWkUFfbPtui4WNoUV --set inf.registry.secretName=eshop-docker-scret
+
+
+
+
+  {
+    "accountEnabled": "True",
+    "addIns": [],
+    "alternativeNames": [
+      "eshop AzureDevOps pipeline"
+    ],
+    "appDisplayName": "'eshop' Default App",
+    "appId": "106c673c-83b6-45af-b4b3-ae225b3ef812",
+    "appOwnerTenantId": "b41b72d0-4e9f-4c26-8a69-f949f367c91d",
+    "appRoleAssignmentRequired": false,
+    "appRoles": [],
+    "applicationTemplateId": null,
+    "deletionTimestamp": null,
+    "displayName": "'eshop' Default App",
+    "errorUrl": null,
+    "homepage": null,
+    "informationalUrls": {
+      "marketing": null,
+      "privacy": null,
+      "support": null,
+      "termsOfService": null
+    },
+    "keyCredentials": [],
+    "logoutUrl": null,
+    "notificationEmailAddresses": [],
+    "oauth2Permissions": [],
+    "objectId": "5c253a27-f650-4744-8d76-55336021dd90",
+    "objectType": "ServicePrincipal",
+    "odata.type": "Microsoft.DirectoryServices.ServicePrincipal",
+    "passwordCredentials": [],
+    "preferredSingleSignOnMode": null,
+    "preferredTokenSigningKeyEndDateTime": null,
+    "preferredTokenSigningKeyThumbprint": null,
+    "publisherName": "EPAM",
+    "replyUrls": [],
+    "samlMetadataUrl": null,
+    "samlSingleSignOnSettings": null,
+    "servicePrincipalNames": [
+      "106c673c-83b6-45af-b4b3-ae225b3ef812"
+    ],
+    "servicePrincipalType": "Application",
+    "signInAudience": "AzureADMyOrg",
+    "tags": [],
+    "tokenEncryptionKeyId": null
+  },
+  
+  
+  {
+  "appId": "106c673c-83b6-45af-b4b3-ae225b3ef812",
+  "name": "106c673c-83b6-45af-b4b3-ae225b3ef812",
+  "password": "Q4UxW-VG0-mcGsGk0pSf-Td7OBYN9ODIzo",
+  "tenant": "b41b72d0-4e9f-4c26-8a69-f949f367c91d"
+}
