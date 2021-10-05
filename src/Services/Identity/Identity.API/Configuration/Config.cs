@@ -267,7 +267,28 @@ namespace Microsoft.eShopOnContainers.Services.Identity.API.Configuration
                     {
                         "webhooks"
                     }
-                }
+                },
+                new Client
+                {
+                    ClientId = "perf",
+                    ClientName = "Performance Test Client",
+                    ClientSecrets = new List<Secret>
+                    {
+                        new Secret("secret".Sha256())
+                    },
+
+                    AllowOfflineAccess = true,
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials,
+                   // AllowAccessTokensViaBrowser = true,
+
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.OfflineAccess,
+                        "coupon"
+                    }
+                },
             };
         }
     }
